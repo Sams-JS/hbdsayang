@@ -13,7 +13,6 @@
       overflow-x: hidden;
     }
 
-    /* Popup awal */
     .popup {
       position: fixed;
       top: 0; left: 0;
@@ -52,7 +51,6 @@
       50% { transform: scale(1.1); }
     }
 
-    /* Ketik animasi */
     .typing {
       font-size: 1.4em;
       color: #c2185b;
@@ -62,36 +60,31 @@
       white-space: pre-wrap;
     }
 
-    /* Slideshow */
     .slide-container {
-      max-width: 320px;
+      width: 320px;
       height: 320px;
       margin: 20px auto;
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    }
-
-    .slides {
-      display: flex;
-      animation: slide 15s infinite;
+      position: relative;
     }
 
     .slides img {
       width: 320px;
       height: 320px;
-      object-fit: cover;
+      object-fit: contain;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
 
-    @keyframes slide {
-      0%, 20% { transform: translateX(0); }
-      25%, 45% { transform: translateX(-100%); }
-      50%, 70% { transform: translateX(-200%); }
-      75%, 95% { transform: translateX(-300%); }
-      100% { transform: translateX(0); }
+    .slides img.active {
+      opacity: 1;
     }
 
-    /* Form */
     form {
       text-align: center;
       padding: 20px;
@@ -117,7 +110,6 @@
       cursor: pointer;
     }
 
-    /* Balon & Hati */
     .floating {
       position: absolute;
       bottom: -100px;
@@ -130,7 +122,6 @@
       100% { transform: translateY(-110vh); }
     }
 
-    /* Responsif */
     @media (max-width: 600px) {
       .slide-container, .slides img {
         width: 90%;
@@ -144,19 +135,26 @@
 <!-- Popup -->
 <div class="popup" id="popup">
   <h1>Selamat Ulang Tahun, Sayang ❤️</h1>
-  <button onclick="start()">Buka Hadiah 🎁</button>
+  <button onclick="start()">🎁</button>
 </div>
 
-<!-- Teks Efek Ketik -->
+<!-- Teks Ketik -->
 <div class="typing" id="typing"></div>
 
 <!-- Slideshow -->
 <div class="slide-container">
-  <div class="slides">
-    <img src="foto1.jpg" alt="Foto 1">
-    <img src="foto2.jpg" alt="Foto 2">
-    <img src="foto3.jpg" alt="Foto 3">
-    <img src="foto4.jpg" alt="Foto 4">
+  <div class="slides" id="slideshow">
+    <img src="asset/foto1.jpg" class="active" alt="Foto 1">
+    <img src="asset/foto2.jpg" alt="Foto 2">
+    <img src="asset/foto3.jpg" alt="Foto 3">
+    <img src="asset/foto4.jpg" alt="Foto 4">
+    <img src="asset/foto5.jpg" alt="Foto 5">
+    <img src="asset/foto6.jpg" alt="Foto 6">
+    <img src="asset/foto7.jpg" alt="Foto 7">
+    <img src="asset/foto8.jpg" alt="Foto 8">
+    <img src="asset/foto9.jpg" alt="Foto 9">
+    <img src="asset/foto10.jpg" alt="Foto 10">
+    <!-- Tambah lagi jika ada -->
   </div>
 </div>
 
@@ -164,10 +162,10 @@
 <form action="https://formsubmit.co/samshiyudha9@gmail.com" method="POST">
   <input type="hidden" name="_captcha" value="false">
   <input type="hidden" name="_template" value="box">
-  <h2>ketik harapan dan hadiah yang ayang inginkan? ✨</h2>
+  <h2>ketik harapan dan hadiah yang ayang inginkan ✨</h2>
   <textarea name="Harapan" rows="4" placeholder="Harapan di tahun ini..."></textarea><br>
-  <input type="text" name="Hadiah" placeholder="Hadiah yang ayang ininginkan.."><br>
-  <button type="submit">Kirim   💌</button>
+  <input type="text" name="Hadiah" placeholder="Hadiah yang ayang inginkan.."><br>
+  <button type="submit">Kirim 💌</button>
 </form>
 
 <!-- Musik -->
@@ -175,15 +173,16 @@
   <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
 </audio>
 
-<!-- Efek Balon & Hati -->
 <script>
 function start() {
   document.getElementById("popup").style.display = "none";
   document.getElementById("bgm").play();
   typeEffect();
   setInterval(createFloating, 500);
+  startSlideshow();
 }
 
+// Efek Ketik
 const message = `Selamat ulang tahun, Sayang ❤️\n\nSemoga ayang selalu sehat, bahagia, dan semua harapanmu dimudahkan. Aku selalu doain yang terbaik buat kamu.\n\nLove you sayang ❤️.`;
 let i = 0;
 function typeEffect() {
@@ -194,7 +193,7 @@ function typeEffect() {
   }
 }
 
-// Efek balon/hati
+// Efek Balon
 function createFloating() {
   const div = document.createElement("div");
   div.classList.add("floating");
@@ -204,6 +203,17 @@ function createFloating() {
   div.style.background = "hsl(" + Math.random() * 360 + ", 80%, 70%)";
   document.body.appendChild(div);
   setTimeout(() => div.remove(), 10000);
+}
+
+// Slideshow Manual
+let slideIndex = 0;
+function startSlideshow() {
+  const slides = document.querySelectorAll('#slideshow img');
+  setInterval(() => {
+    slides[slideIndex].classList.remove("active");
+    slideIndex = (slideIndex + 1) % slides.length;
+    slides[slideIndex].classList.add("active");
+  }, 3000); // Ganti slide setiap 3 detik
 }
 </script>
 
