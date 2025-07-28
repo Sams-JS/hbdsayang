@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Selamat Ulang Tahun, Ai Nita Amelia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #ffc0cb, #ffe4e1);
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Popup awal */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(255, 192, 203, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .popup h1 {
+      color: #d63384;
+      font-size: 2.5em;
+      animation: fadeInDown 2s ease;
+    }
+
+    .popup button {
+      padding: 12px 24px;
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Ketik animasi */
+    .typing {
+      font-size: 1.4em;
+      color: #c2185b;
+      text-align: center;
+      margin: 20px;
+      min-height: 80px;
+      white-space: pre-wrap;
+    }
+
+    /* Slideshow */
+    .slide-container {
+      max-width: 320px;
+      height: 320px;
+      margin: 20px auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    .slides {
+      display: flex;
+      animation: slide 15s infinite;
+    }
+
+    .slides img {
+      width: 320px;
+      height: 320px;
+      object-fit: cover;
+    }
+
+    @keyframes slide {
+      0%, 20% { transform: translateX(0); }
+      25%, 45% { transform: translateX(-100%); }
+      50%, 70% { transform: translateX(-200%); }
+      75%, 95% { transform: translateX(-300%); }
+      100% { transform: translateX(0); }
+    }
+
+    /* Form */
+    form {
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 3s ease;
+    }
+
+    textarea, input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid #ff69b4;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+
+    button[type="submit"] {
+      background-color: #ff69b4;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    /* Balon & Hati */
+    .floating {
+      position: absolute;
+      bottom: -100px;
+      animation: floatUp 10s linear infinite;
+      border-radius: 50%;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-110vh); }
+    }
+
+    /* Responsif */
+    @media (max-width: 600px) {
+      .slide-container, .slides img {
+        width: 90%;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+  <h1>Selamat Ulang Tahun, Sayang ❤️</h1>
+  <button onclick="start()">Buka Hadiah 🎁</button>
+</div>
+
+<!-- Teks Efek Ketik -->
+<div class="typing" id="typing"></div>
+
+<!-- Slideshow -->
+<div class="slide-container">
+  <div class="slides">
+    <img src="foto1.jpg" alt="Foto 1">
+    <img src="foto2.jpg" alt="Foto 2">
+    <img src="foto3.jpg" alt="Foto 3">
+    <img src="foto4.jpg" alt="Foto 4">
+  </div>
+</div>
+
+<!-- Form Harapan -->
+<form action="https://formsubmit.co/samshiyudha9@gmail.com" method="POST">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="box">
+  <h2>ketik harapan dan hadiah yang ayang inginkan? ✨</h2>
+  <textarea name="Harapan" rows="4" placeholder="Harapan di tahun ini..."></textarea><br>
+  <input type="text" name="Hadiah" placeholder="Hadiah yang ayang ininginkan.."><br>
+  <button type="submit">Kirim   💌</button>
+</form>
+
+<!-- Musik -->
+<audio id="bgm" autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+</audio>
+
+<!-- Efek Balon & Hati -->
+<script>
+function start() {
+  document.getElementById("popup").style.display = "none";
+  document.getElementById("bgm").play();
+  typeEffect();
+  setInterval(createFloating, 500);
+}
+
+const message = `Selamat ulang tahun, Sayang ❤️\n\nSemoga ayang selalu sehat, bahagia, dan semua harapanmu dimudahkan. Aku selalu doain yang terbaik buat kamu.\n\nLove you sayang ❤️.`;
+let i = 0;
+function typeEffect() {
+  if (i < message.length) {
+    document.getElementById("typing").innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeEffect, 50);
+  }
+}
+
+// Efek balon/hati
+function createFloating() {
+  const div = document.createElement("div");
+  div.classList.add("floating");
+  const size = Math.random() * 30 + 20;
+  div.style.width = div.style.height = size + "px";
+  div.style.left = Math.random() * 100 + "vw";
+  div.style.background = "hsl(" + Math.random() * 360 + ", 80%, 70%)";
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 10000);
+}
+</script>
+
+</body>
+</html>
